@@ -10,55 +10,52 @@ const ReadingCard = ({ reading }) => {
         const checkScroll = () => {
             if (contentRef.current) {
                 const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
-                // Mostrar flecha si hay contenido para hacer scroll hacia abajo
                 const hasMoreContent = scrollHeight > clientHeight;
-                const isAtBottom = scrollHeight - scrollTop - clientHeight < 10; // 10px de margen
+                const isAtBottom = scrollHeight - scrollTop - clientHeight < 20;
                 setShowScrollIndicator(hasMoreContent && !isAtBottom);
             }
         };
 
-        checkScroll();
         const contentElement = contentRef.current;
         if (contentElement) {
+            // Initial check
+            const timer = setTimeout(checkScroll, 100); // Delay to allow rendering
             contentElement.addEventListener('scroll', checkScroll);
-            // También verificar cuando cambia el tamaño
             window.addEventListener('resize', checkScroll);
-        }
-
-        return () => {
-            if (contentElement) {
+            
+            return () => {
+                clearTimeout(timer);
                 contentElement.removeEventListener('scroll', checkScroll);
-            }
-            window.removeEventListener('resize', checkScroll);
-        };
+                window.removeEventListener('resize', checkScroll);
+            };
+        }
     }, [reading]);
 
     if (!reading) return null;
 
     return (
-        <div className="card h-full flex flex-col relative">
-            <div className="mb-6 border-b border-gray-100 pb-4">
-                <h2 className="text-xl font-sans text-accent mb-1" style={{ color: 'var(--color-accent)' }}>
+        <div className="card h-full flex flex-col">
+            <div className="mb-6 border-b border-gray-900/10 pb-4">
+                <h2 className="text-2xl font-bold" style={{ color: 'var(--color-accent)' }}>
                     {reading.type}
                 </h2>
-                <p className="text-sm text-gray-400 font-medium uppercase tracking-wider">
+                <p className="text-sm text-gray-500 font-medium uppercase tracking-wider">
                     {reading.reference}
                 </p>
             </div>
 
-            <div ref={contentRef} className="flex-grow overflow-y-auto pr-2 custom-scrollbar">
-                <div className="prose prose-lg text-gray-700 leading-relaxed whitespace-pre-line">
+            <div ref={contentRef} className="flex-grow overflow-y-auto pr-4 -mr-4 custom-scrollbar">
+                <div className="prose max-w-none text-gray-800 leading-loose whitespace-pre-line">
                     {reading.text}
                 </div>
             </div>
 
-            {/* Indicador de scroll */}
             {showScrollIndicator && (
                 <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-none z-10"
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-10"
                 >
                     <motion.div
                         animate={{ y: [0, 8, 0] }}
@@ -71,8 +68,8 @@ const ReadingCard = ({ reading }) => {
                 </motion.div>
             )}
 
-            <div className="mt-6 pt-4 border-t border-gray-100 text-center">
-                <span className="text-xs text-gray-400 italic">Palabra de Dios</span>
+            <div className="mt-6 pt-4 border-t border-gray-900/10 text-center">
+                <span className="text-sm text-gray-500 italic">Palabra de Dios</span>
             </div>
         </div>
     );
