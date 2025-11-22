@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --font-serif: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+
+  --color-bg: #fdfbf7;
+  /* Off-white / Paper */
+  --color-text: #2d2d2d;
+  /* Dark Gray */
+  --color-text-light: #6b6b6b;
+  --color-accent: #8a2be2;
+  /* Deep Purple (Liturgical) - can be dynamic later */
+  --color-accent-gold: #d4af37;
+  --color-card-bg: #ffffff;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  --base-font-size: 16px;
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: var(--base-font-size);
+  line-height: 1.6;
+  transition: font-size 0.2s ease;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  margin-top: 0;
+  color: var(--color-text);
+}
+
+button {
+  font-family: var(--font-sans);
+}
+
+/* Utility Classes */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  background: var(--color-card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+/* Glassmorphism hints */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
